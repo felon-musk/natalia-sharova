@@ -23,7 +23,7 @@ const ARTWORKS = [
     size: "40 × 40 in",
     price: "",
     images: ["images/painting-01.jpg"],
-    room: "",
+    room: "images/painting-01-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -36,7 +36,7 @@ const ARTWORKS = [
     size: "24 × 24 in",
     price: "",
     images: ["images/painting-02.jpg"],
-    room: "",
+    room: "images/painting-02-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -49,7 +49,7 @@ const ARTWORKS = [
     size: "30 × 30 in",
     price: "",
     images: ["images/painting-03.jpg"],
-    room: "",
+    room: "images/painting-03-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -62,7 +62,7 @@ const ARTWORKS = [
     size: "24 × 24 in",
     price: "",
     images: ["images/painting-04.jpg"],
-    room: "",
+    room: "images/painting-04-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -75,7 +75,7 @@ const ARTWORKS = [
     size: "30 × 30 in",
     price: "",
     images: ["images/painting-05.jpg"],
-    room: "",
+    room: "images/painting-05-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -88,7 +88,7 @@ const ARTWORKS = [
     size: "30 × 30 in",
     price: "",
     images: ["images/painting-06.jpg"],
-    room: "",
+    room: "images/painting-06-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -101,7 +101,7 @@ const ARTWORKS = [
     size: "36 × 36 in",
     price: "",
     images: ["images/painting-07.jpg"],
-    room: "",
+    room: "images/painting-07-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -114,7 +114,7 @@ const ARTWORKS = [
     size: "30 × 30 in",
     price: "",
     images: ["images/painting-08.jpg"],
-    room: "",
+    room: "images/painting-08-room.jpg",
     description: "",
     buyLink: ""
   },
@@ -127,7 +127,7 @@ const ARTWORKS = [
     size: "24 × 24 in",
     price: "",
     images: ["images/painting-09.jpg"],
-    room: "",
+    room: "images/painting-09-room.jpg",
     description: "",
     buyLink: ""
   }
