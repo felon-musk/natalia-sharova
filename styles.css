@@ -28,6 +28,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- Fade-in on scroll ---------- */
 .js-reveal .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
 .js-reveal .reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js-reveal .reveal { transform: none; } }
 
 /* ---------- Header ---------- */
 .site-header {

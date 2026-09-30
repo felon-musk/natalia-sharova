@@ -1,10 +1,10 @@
 // Fades sections into view as the visitor scrolls.
 // Anything with class="reveal" starts hidden and fades up when it enters the screen.
-// Visitors who've asked their device for less motion see everything straight away.
+// Visitors who've asked their device for less motion get a plain fade with no movement (see styles.css).
 
 document.documentElement.classList.add("js-reveal");
 
-const revealObserver = "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches
+const revealObserver = "IntersectionObserver" in window
   ? new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
