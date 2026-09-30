@@ -34,7 +34,7 @@
 
   <main>
     <!-- WELCOME -->
-    <section class="welcome wrap">
+    <section class="welcome wrap reveal">
       <h1>[Insert quote here]</h1>
       <div class="eyebrow">quote attribution</div>
     </section>
@@ -43,7 +43,7 @@
 
     <!-- SHOP -->
     <section class="shop wrap" id="shop">
-      <h2 class="section-title">Available Work</h2>
+      <h2 class="section-title reveal">Available Work</h2>
       <div class="filters">
         <button class="active" data-filter="original">Originals</button>
         <button data-filter="print">Prints</button>
@@ -54,7 +54,7 @@
 
   <!-- FOOTER / CONTACT -->
   <footer class="site-footer" id="contact">
-    <div class="wrap">
+    <div class="wrap reveal">
       <h2>Contact</h2>
       <p class="lead">For commissions, gallery inquiries, or questions about a painting,<br>I'd love to hear from you.</p>
       <div class="contact-links">
@@ -81,6 +81,7 @@
     window.addEventListener("scroll", () =>
       document.querySelector(".site-header").classList.toggle("scrolled", scrollY > 10));
   </script>
+  <script src="reveal.js"></script>
   <script src="artworks.js"></script>
   <script src="shop.js"></script>
 </body>

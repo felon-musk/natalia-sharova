@@ -21,7 +21,8 @@ function renderGrid(filter = "original") {
   ARTWORKS.forEach((art, i) => {
     if (art.type !== filter) return;
     const card = document.createElement("article");
-    card.className = "card" + (art.status === "sold" ? " sold" : "");
+    card.className = "card reveal" + (art.status === "sold" ? " sold" : "");
+    card.style.transitionDelay = (grid.children.length % 3) * 0.12 + "s"; // paintings in a row appear one after another
     card.tabIndex = 0;
     card.innerHTML = `
       <div class="card-media">
@@ -36,6 +37,7 @@ function renderGrid(filter = "original") {
     card.addEventListener("keydown", e => { if (e.key === "Enter") openDetail(i); });
     grid.appendChild(card);
   });
+  observeReveals(grid);
 }
 
 function openDetail(i) {
