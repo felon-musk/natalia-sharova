@@ -128,6 +128,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .card .meta { font-size: 15px; color: var(--muted); }
 .card .price { font-size: 16px; margin-top: 2px; }
 .card.sold .price { color: var(--muted); }
+/* On computers, the price only appears while the mouse is over the painting (its space stays reserved so nothing jumps).
+   Phones and tablets can't hover, so there it stays visible. */
+@media (hover: hover) {
+  /* quick fade-out in place: it only moves back up after it's fully invisible, ready for the next slide-in */
+  .card .price { opacity: 0; transform: translateY(-12px); transition: opacity .4s ease, transform 0s linear .4s; }
+  .card:hover .price, .card:focus-visible .price {                                    /* slow fade-in, sliding down */
+    opacity: 1; transform: none; transition: opacity 1s ease, transform 1s ease;
+  }
+}
 
 /* ---------- Detail view (opens when a painting is clicked) ---------- */
 .detail {
