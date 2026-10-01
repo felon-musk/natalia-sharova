@@ -13,7 +13,7 @@
 html { scroll-behavior: smooth; }
 body {
   /* very subtle stone/paper texture over the white (images/paper-texture.jpg; 800px tile shown at 400px for sharpness) */
-  background: var(--paper) url("images/paper-texture.jpg") repeat;
+  background: var(--paper) url("images/paper-texture.jpg?v=3") repeat;
   background-size: 400px 400px;
   color: var(--ink);
   font-family: var(--body);
@@ -142,7 +142,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Detail view (opens when a painting is clicked) ---------- */
 .detail {
-  position: fixed; inset: 0; z-index: 50; background: var(--paper) url("images/paper-texture.jpg") repeat; background-size: 400px 400px;
+  position: fixed; inset: 0; z-index: 50; background: var(--paper) url("images/paper-texture.jpg?v=3") repeat; background-size: 400px 400px;
   overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s;
 }
 .detail.open { opacity: 1; visibility: visible; }
