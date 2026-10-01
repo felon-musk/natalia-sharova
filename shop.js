@@ -53,7 +53,7 @@ function renderGrid(filter = "original") {
 // left, right and down. Every size and gap is a % of the page width, so it scales with the window.
 // Placement for each pair (a = left painting, b = right painting): ml/mr = space on the left/right, mt = drop from the top.
 const STAGGER_PATTERN = [
-  { a: { ml: 0,  mt: 0 }, b: { mr: 9,  mt: 7 } },
+  { a: { ml: 4,  mt: 0 }, b: { mr: 9,  mt: 7 } },
   { a: { ml: 26, mt: 5 }, b: { mr: 0,  mt: 0 } },
   { a: { ml: 3,  mt: 8 }, b: { mr: 10, mt: 0 } },
   { a: { ml: 20, mt: 0 }, b: { mr: 0,  mt: 12 } },
