@@ -15,29 +15,80 @@ function priceLabel(art) {
   return art.price ? money(art.price) : "Price on request";
 }
 
+function makeCard(art, i) {
+  const card = document.createElement("article");
+  card.className = "card reveal" + (art.status === "sold" ? " sold" : "");
+  card.tabIndex = 0;
+  card.innerHTML = `
+    <div class="card-media">
+      ${art.status === "sold" ? '<span class="tag">Sold</span>' : art.type === "print" ? '<span class="tag">Print</span>' : ""}
+      <img src="${art.images[0]}" alt="${art.title}" loading="lazy">
+      ${art.room ? `<img class="room" src="${art.room}" alt="${art.title} shown in a room" loading="lazy">` : ""}
+    </div>
+    <h3>${art.title}</h3>
+    <div class="meta">${materialLine(art)}</div>
+    ${art.status === "sold" ? "" : `<div class="price">${priceLabel(art)}</div>`}`;
+  card.addEventListener("click", () => openDetail(i));
+  card.addEventListener("keydown", e => { if (e.key === "Enter") openDetail(i); });
+  return card;
+}
+
 function renderGrid(filter = "original") {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
-  ARTWORKS.forEach((art, i) => {
-    if (art.type !== filter) return;
-    const card = document.createElement("article");
-    card.className = "card reveal" + (art.status === "sold" ? " sold" : "");
-    card.style.transitionDelay = (grid.children.length % 3) * 0.12 + "s"; // paintings in a row appear one after another
-    card.tabIndex = 0;
-    card.innerHTML = `
-      <div class="card-media">
-        ${art.status === "sold" ? '<span class="tag">Sold</span>' : art.type === "print" ? '<span class="tag">Print</span>' : ""}
-        <img src="${art.images[0]}" alt="${art.title}" loading="lazy">
-        ${art.room ? `<img class="room" src="${art.room}" alt="${art.title} shown in a room" loading="lazy">` : ""}
-      </div>
-      <h3>${art.title}</h3>
-      <div class="meta">${materialLine(art)}</div>
-      ${art.status === "sold" ? "" : `<div class="price">${priceLabel(art)}</div>`}`;
-    card.addEventListener("click", () => openDetail(i));
-    card.addEventListener("keydown", e => { if (e.key === "Enter") openDetail(i); });
-    grid.appendChild(card);
-  });
+  const items = ARTWORKS.map((art, i) => [art, i]).filter(([art]) => art.type === filter);
+  if (typeof LAYOUT !== "undefined" && LAYOUT === "staggered") renderStaggered(grid, items);
+  else {
+    grid.className = "grid";
+    items.forEach(([art, i], n) => {
+      const card = makeCard(art, i);
+      card.style.transitionDelay = (n % 3) * 0.12 + "s"; // paintings in a row appear one after another
+      grid.appendChild(card);
+    });
+  }
   observeReveals(grid);
+}
+
+// Staggered layout: paintings sized relative to their real dimensions, in pairs that shift
+// left, right and down. Every size and gap is a % of the page width, so it scales with the window.
+// Placement for each pair (a = left painting, b = right painting): ml/mr = space on the left/right, mt = drop from the top.
+const STAGGER_PATTERN = [
+  { a: { ml: 0,  mt: 0 }, b: { mr: 6,  mt: 14 } },
+  { a: { ml: 26, mt: 5 }, b: { mr: 0,  mt: 0 } },
+  { a: { ml: 3,  mt: 8 }, b: { mr: 10, mt: 0 } },
+  { a: { ml: 20, mt: 0 }, b: { mr: 0,  mt: 12 } },
+];
+const inches = art => parseFloat(art.size) || 30;          // "40 × 40 in" -> 40 (prints without a size count as 30)
+const widestPct = art => inches(art) / 40 * 44;             // largest share of the row a painting can take (tablet sizing)
+
+function renderStaggered(grid, items) {
+  grid.className = "stagger";
+  for (let k = 0, r = 0; k < items.length; k += 2, r++) {
+    const row = document.createElement("div");
+    row.className = "srow";
+    const p = STAGGER_PATTERN[r % STAGGER_PATTERN.length];
+    const [A, ai] = items[k];
+    const a = makeCard(A, ai);
+    a.style.setProperty("--in", inches(A));
+    if (items[k + 1]) {
+      const [B, bi] = items[k + 1];
+      const b = makeCard(B, bi);
+      b.style.setProperty("--in", inches(B));
+      b.classList.add("alt");
+      b.style.transitionDelay = "0.12s";
+      // never let a row add up to more than 100%: shrink the left offset if needed
+      const room = 100 - widestPct(A) - widestPct(B) - p.b.mr - 4;
+      a.style.marginLeft = Math.max(0, Math.min(p.a.ml, room)) + "%";
+      a.style.marginTop = p.a.mt + "%";
+      b.style.marginRight = p.b.mr + "%";
+      b.style.marginTop = p.b.mt + "%";
+      row.append(a, b);
+    } else {
+      a.style.marginLeft = (100 - widestPct(A)) / 2 + 6 + "%"; // a lone last painting sits just right of center
+      row.append(a);
+    }
+    grid.appendChild(row);
+  }
 }
 
 function openDetail(i) {

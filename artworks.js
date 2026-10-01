@@ -13,6 +13,10 @@
   options:  for prints only: one line per size
 */
 
+// SHOP LAYOUT: "staggered" (paintings sized to their real dimensions, loosely arranged)
+//              or "grid" (the original even 3 × 3 grid). Change the word to switch.
+const LAYOUT = "staggered";
+
 const ARTWORKS = [
   {
     title: "Untitled No. 1",
