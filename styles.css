@@ -176,7 +176,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: fixed; top: 22px; right: 28px; font-size: 16px; z-index: 2;
   letter-spacing: .04em; padding: 6px 0; border-bottom: 1px solid var(--ink);
 }
-.detail-inner {
+.detail-inner { container-type: inline-size; 
   display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; align-items: start;
   max-width: 1240px; margin: 0 auto; padding: 84px 32px 80px;
 }
@@ -192,18 +192,29 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .thumbs button.active, .thumbs button:hover { opacity: 1; }
 .thumbs img { width: 100%; height: 100%; object-fit: cover; }
 .detail-info { position: sticky; top: 84px; }
-.detail-info h2 { font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(30px, calc(.833vw + 26px), 36px); line-height: 1.1; }
-.detail-info .kind { font-family: var(--display); font-style: italic; color: var(--muted); font-size: 19px; margin-top: 6px; margin-bottom: 22px; }
-.detail-info .kind + .price { margin-top: 0; }
-.detail-info .price { font-size: 22px; margin: 22px 0; }
+.detail-info h2 { font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(26px, 3.06cqw, 36px); line-height: 1.1; }
+.detail-info .kind { font-family: var(--display); font-style: italic; color: var(--muted); font-size: clamp(15px, 1.62cqw, 19px); margin-top: 6px; margin-bottom: 22px; }
+/* detail view text scales with the detail view itself (cqw = % of its width), keeping the proportions to the painting you see at full width */
+/* gallery-style status line: ● AVAILABLE / ● SOLD */
+.detail-info .status { font-size: clamp(10.5px, 1.02cqw, 12px); letter-spacing: .26em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.detail-info .status .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #7e9a6f; margin-right: 9px; vertical-align: 1px; }
+.detail-info .status.sold .dot { background: #b0624f; }
+.detail-info .status + .price { margin-top: 0; }
+.detail-info .status.sold { margin-bottom: 26px; }
+.detail-info .price { font-size: clamp(17px, 1.87cqw, 22px); margin: 22px 0; }
 .detail-info dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 22px; font-size: 16px; border-top: 1px solid var(--line); padding-top: 20px; margin-bottom: 22px; }
 .detail-info dt { color: var(--muted); }
 .detail-info .desc { color: #4a4642; margin-bottom: 30px; }
 .sizes { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
 .sizes button { border: 1px solid var(--line); padding: 8px 16px; font-size: 15px; }
 .sizes button.active { border-color: var(--ink); }
-.detail-info .btn { width: 100%; text-align: center; }
-.small-note { font-size: 14px; color: var(--muted); margin-top: 14px; text-align: center; }
+/* the inquire/purchase link: spaced capitals on a full-width hairline, arrow glides right on hover */
+.ruled { display: flex; justify-content: space-between; align-items: baseline; width: 100%;
+  font-size: clamp(11px, 1.1cqw, 13px); letter-spacing: .26em; text-transform: uppercase; color: var(--ink);
+  padding: 4px 0 11px; border-bottom: 1px solid var(--ink); }
+.ruled .arrow { display: inline-block; letter-spacing: 0; font-size: 15px; transition: transform .45s cubic-bezier(.22, .61, .36, 1); }
+.ruled:hover .arrow, .ruled:focus-visible .arrow { transform: translateX(8px); }
+.small-note { font-size: 14px; color: var(--muted); margin-top: 12px; }
 
 /* ---------- Footer / contact ---------- */
 .site-footer { position: relative; background: var(--soft); padding: 90px 0 36px; text-align: center; }

@@ -108,27 +108,29 @@ function openDetail(i) {
     <div class="detail-info">
       <h2>${art.title}</h2>
       <div class="kind">${materialLine(art)}${art.year ? ", " + art.year : ""}</div>
-      <div class="price" id="detailPrice">${chosen ? money(chosen.price) : priceLabel(art)}</div>
+      <div class="status${art.status === "sold" ? " sold" : ""}"><span class="dot"></span>${art.status === "sold" ? "Sold" : "Available"}</div>
+      ${art.status === "sold" ? "" : `<div class="price" id="detailPrice">${chosen ? money(chosen.price) : priceLabel(art)}</div>`}
       ${chosen ? `<div class="sizes">${art.options.map((o, n) =>
         `<button class="${n ? "" : "active"}" data-n="${n}">${o.size}</button>`).join("")}</div>` : ""}
       ${art.type === "print" ? `<dl><dt>Medium</dt><dd>${art.medium}</dd></dl>` : ""}
       <p class="desc">${art.description || ""}</p>
-      <a class="btn" id="buyBtn" target="_blank" rel="noopener"></a>
+      <a class="ruled" id="buyBtn" target="_blank" rel="noopener"><span class="label"></span><span class="arrow" aria-hidden="true">→</span></a>
       <p class="small-note" id="buyNote"></p>
     </div>`;
 
   const buyBtn = d.querySelector("#buyBtn");
+  const label = buyBtn.querySelector(".label");
   const note = d.querySelector("#buyNote");
   function updateBuy() {
     const link = chosen ? chosen.buyLink : art.buyLink;
     if (art.status === "sold") {
-      buyBtn.textContent = "Inquire about similar work"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
+      label.textContent = "Inquire about similar work"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
       note.textContent = "This painting has found a home.";
     } else if (link) {
-      buyBtn.textContent = "Purchase"; buyBtn.href = link; buyBtn.target = "_blank";
+      label.textContent = "Purchase"; buyBtn.href = link; buyBtn.target = "_blank";
       note.textContent = "Secure checkout. Free shipping within the US.";
     } else {
-      buyBtn.textContent = "Inquire to purchase"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
+      label.textContent = "Inquire"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
       note.textContent = "";
     }
   }
