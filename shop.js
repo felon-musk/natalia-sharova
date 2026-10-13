@@ -59,7 +59,7 @@ const STAGGER_PATTERN = [
   { a: { ml: 20, mt: 0 }, b: { mr: 0,  mt: 12 } },
 ];
 const inches = art => parseFloat(art.size) || 30;          // "40 × 40 in" -> 40 (prints without a size count as 30)
-const widestPct = art => inches(art) / 40 * 44;             // largest share of the row a painting can take (tablet sizing)
+const widestPct = art => inches(art) / 40 * 50;             // largest share of the row a painting can take (tablet sizing)
 
 function renderStaggered(grid, items) {
   grid.className = "stagger";
