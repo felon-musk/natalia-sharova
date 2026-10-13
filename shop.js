@@ -273,14 +273,23 @@ document.addEventListener("DOMContentLoaded", () => {
   let swipe = null;
   detail.addEventListener("touchstart", e => {
     const zoomed = detail.querySelector(".detail-main.zoomed");
-    swipe = e.touches.length === 1 && !zoomed ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() } : null;
+    swipe = e.touches.length === 1 && !zoomed ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now(),
+      onPhoto: !!e.target.closest(".detail-main") } : null;
   }, { passive: true });
   detail.addEventListener("touchmove", e => { if (e.touches.length > 1) swipe = null; }, { passive: true });
   detail.addEventListener("touchend", e => {
     if (!swipe || detail.querySelector(".detail-main.zoomed")) { swipe = null; return; }
     const t = e.changedTouches[0], dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
     const quick = Date.now() - swipe.t < 700;
+    const onPhoto = swipe.onPhoto;
     swipe = null;
-    if (quick && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) browse(dx < 0 ? 1 : -1);
+    if (!(quick && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5)) return;
+    const step = dx < 0 ? 1 : -1;
+    if (onPhoto) {
+      // swiping on the photo flips between this painting's photos (painting ↔ room view)
+      const thumbs = [...detail.querySelectorAll(".thumbs button")];
+      const at = thumbs.findIndex(b => b.classList.contains("active"));
+      if (thumbs[at + step]) thumbs[at + step].click();
+    } else browse(step);   // swiping anywhere else moves to the next / previous painting
   }, { passive: true });
 });
