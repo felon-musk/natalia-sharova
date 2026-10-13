@@ -95,6 +95,13 @@ function renderStaggered(grid, items) {
 
 let shownOrder = [], currentDetail = null;
 
+// step +1 = next painting, -1 = previous (in grid order, wrapping around at the ends)
+function browse(step) {
+  if (shownOrder.length < 2 || !document.getElementById("detail").classList.contains("open")) return;
+  const n = shownOrder.length, at = Math.max(0, shownOrder.indexOf(currentDetail));
+  openDetail(shownOrder[(at + step + n) % n]);
+}
+
 function openDetail(i) {
   currentDetail = i;
   const art = ARTWORKS[i];
@@ -253,11 +260,27 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", e => {
     const open = document.getElementById("detail").classList.contains("open");
     if (e.key === "Escape") closeDetail();
-    // ← / → browse to the previous / next painting while one is open (wraps around at the ends)
-    if (open && (e.key === "ArrowLeft" || e.key === "ArrowRight") && shownOrder.length > 1) {
+    // ← / → browse to the previous / next painting while one is open
+    if (open && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
       e.preventDefault();
-      const n = shownOrder.length, at = Math.max(0, shownOrder.indexOf(currentDetail));
-      openDetail(shownOrder[(at + (e.key === "ArrowRight" ? 1 : -1) + n) % n]);
+      browse(e.key === "ArrowRight" ? 1 : -1);
     }
   });
+
+  // Touchscreens: swipe left for the next painting, right for the previous one.
+  // Ignored while two fingers are down (pinch) or while the photo is zoomed in (dragging looks around instead).
+  const detail = document.getElementById("detail");
+  let swipe = null;
+  detail.addEventListener("touchstart", e => {
+    const zoomed = detail.querySelector(".detail-main.zoomed");
+    swipe = e.touches.length === 1 && !zoomed ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() } : null;
+  }, { passive: true });
+  detail.addEventListener("touchmove", e => { if (e.touches.length > 1) swipe = null; }, { passive: true });
+  detail.addEventListener("touchend", e => {
+    if (!swipe || detail.querySelector(".detail-main.zoomed")) { swipe = null; return; }
+    const t = e.changedTouches[0], dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
+    const quick = Date.now() - swipe.t < 700;
+    swipe = null;
+    if (quick && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) browse(dx < 0 ? 1 : -1);
+  }, { passive: true });
 });
