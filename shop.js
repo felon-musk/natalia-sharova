@@ -21,12 +21,13 @@ function makeCard(art, i) {
   card.tabIndex = 0;
   card.innerHTML = `
     <div class="card-media">
-      ${art.status === "sold" ? '<span class="tag">Sold</span>' : art.type === "print" ? '<span class="tag">Print</span>' : ""}
+      ${art.type === "print" ? '<span class="tag">Print</span>' : ""}
       <img src="${art.images[0]}" alt="${art.title}" loading="lazy">
       ${art.room ? `<img class="room" src="${art.room}" alt="${art.title} shown in a room" loading="lazy">` : ""}
     </div>
     <h3>${art.title}</h3>
     <div class="meta">${materialLine(art)}</div>
+    ${art.status === "sold" ? '<div class="status sold"><span class="dot"></span>Sold</div>' : ""}
     ${art.status === "sold" ? "" : `<div class="price">${priceLabel(art)}</div>`}`;
   card.addEventListener("click", () => openDetail(i));
   card.addEventListener("keydown", e => { if (e.key === "Enter") openDetail(i); });

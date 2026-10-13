@@ -195,10 +195,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .detail-info h2 { font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(26px, 3.06cqw, 36px); line-height: 1.1; }
 .detail-info .kind { font-family: var(--display); font-style: italic; color: var(--muted); font-size: clamp(15px, 1.62cqw, 19px); margin-top: 6px; margin-bottom: 22px; }
 /* detail view text scales with the detail view itself (cqw = % of its width), keeping the proportions to the painting you see at full width */
-/* gallery-style status line: ● AVAILABLE / ● SOLD */
-.detail-info .status { font-size: clamp(10.5px, 1.02cqw, 12px); letter-spacing: .26em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.detail-info .status .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #7e9a6f; margin-right: 9px; vertical-align: 1px; }
-.detail-info .status.sold .dot { background: #b0624f; }
+/* gallery-style status line: ● AVAILABLE / ● SOLD (detail view, and ● SOLD under sold paintings in the grid) */
+.status { letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+.status .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #7e9a6f; margin-right: 9px; vertical-align: 1px; }
+.status.sold .dot { background: #b0624f; }
+.detail-info .status { font-size: clamp(10.5px, 1.02cqw, 12px); margin-bottom: 8px; }
+.card .status { font-size: 10.5px; margin-top: 6px; }
+.card .status .dot { width: 6px; height: 6px; margin-right: 8px; }
 .detail-info .status + .price { margin-top: 0; }
 .detail-info .status.sold { margin-bottom: 26px; }
 .detail-info .price { font-size: clamp(17px, 1.87cqw, 22px); margin: 22px 0; }
