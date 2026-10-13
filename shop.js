@@ -134,7 +134,11 @@ function openDetail(i) {
   }
   updateBuy();
 
+  const zoomBox = d.querySelector(".detail-main");
+  enableZoom(zoomBox, d.querySelector("#mainPhoto"));
+
   d.querySelectorAll(".thumbs button").forEach(b => b.addEventListener("click", () => {
+    zoomBox.resetZoom();
     d.querySelector("#mainPhoto").src = b.dataset.src;
     d.querySelectorAll(".thumbs button").forEach(x => x.classList.toggle("active", x === b));
   }));
@@ -148,6 +152,79 @@ function openDetail(i) {
   d.classList.add("open");
   d.scrollTop = 0;
   document.body.style.overflow = "hidden";
+}
+
+// Zoom on the large photo in the detail view:
+// computers magnify where the mouse points; phones and tablets pinch with two fingers,
+// drag with one finger to look around, and double-tap to zoom back out.
+function enableZoom(box, img) {
+  const MAX = 3;
+  let scale = 1, ox = 50, oy = 50;
+  const clamp = v => Math.max(0, Math.min(100, v));
+  const apply = () => {
+    img.style.transformOrigin = `${ox}% ${oy}%`;
+    img.style.transform = scale > 1 ? `scale(${scale})` : "";
+    box.classList.toggle("zoomed", scale > 1);
+  };
+  const at = (x, y) => {
+    const r = box.getBoundingClientRect();
+    return [clamp((x - r.left) / r.width * 100), clamp((y - r.top) / r.height * 100)];
+  };
+  box.resetZoom = () => { scale = 1; apply(); };
+
+  // mouse or trackpad: magnify wherever the pointer is
+  box.addEventListener("pointermove", e => {
+    if (e.pointerType !== "mouse") return;
+    [ox, oy] = at(e.clientX, e.clientY); scale = 2.5; apply();
+  });
+  box.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") box.resetZoom(); });
+
+  // fingers: pinch, drag and double-tap
+  const fingers = new Map();
+  let startDist = 0, startScale = 1, last = null, lastTap = 0, tap = null;   // tap = a single finger that hasn't moved
+  const gap = () => { const [a, b] = [...fingers.values()]; return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY); };
+  box.addEventListener("pointerdown", e => {
+    if (e.pointerType === "mouse") return;
+    fingers.set(e.pointerId, e);
+    tap = fingers.size === 1 ? { x: e.clientX, y: e.clientY, t: Date.now() } : null;
+    if (fingers.size === 2) {
+      const [a, b] = [...fingers.values()];
+      startDist = gap(); startScale = scale;
+      if (scale === 1) [ox, oy] = at((a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2);
+    }
+    last = e;
+  });
+  box.addEventListener("pointermove", e => {
+    if (!fingers.has(e.pointerId)) return;
+    fingers.set(e.pointerId, e);
+    if (tap && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 10) tap = null;
+    if (fingers.size === 2 && startDist) {
+      scale = Math.max(1, Math.min(MAX, startScale * gap() / startDist));
+      apply();
+    } else if (fingers.size === 1 && scale > 1 && last) {
+      const r = box.getBoundingClientRect();
+      ox = clamp(ox - (e.clientX - last.clientX) / r.width * 100 / (scale - 1));
+      oy = clamp(oy - (e.clientY - last.clientY) / r.height * 100 / (scale - 1));
+      apply();
+    }
+    last = e;
+  });
+  const lift = e => {
+    fingers.delete(e.pointerId);
+    if (fingers.size < 2) startDist = 0;
+    last = fingers.size ? [...fingers.values()][0] : null;
+    if (scale < 1.05) box.resetZoom();
+  };
+  box.addEventListener("pointerup", e => {
+    if (e.pointerType === "mouse") return;
+    const wasTap = tap && fingers.size === 1 && Date.now() - tap.t < 300;
+    lift(e);
+    if (!wasTap) return;
+    const now = Date.now();
+    if (now - lastTap < 300 && scale > 1) { box.resetZoom(); lastTap = 0; }   // double-tap zooms back out
+    else lastTap = now;
+  });
+  box.addEventListener("pointercancel", lift);
 }
 
 function closeDetail() {
