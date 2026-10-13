@@ -81,8 +81,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 130px; line-height: .75; max-width: none; margin-bottom: 0;
 }
 .phone-break { display: none; }
-@media (max-width: 780px) { .phone-break { display: inline; } }   /* too narrow for one line (it's ~665px wide) */
-@media (max-width: 600px) { .welcome h1.tagline { font-size: 90px; } }
+@media (max-width: 1000px) { .welcome h1.tagline { font-size: 100px; } }                  /* tablet portrait: smaller, still one line */
+@media (max-width: 600px) { .phone-break { display: inline; } .welcome h1.tagline { font-size: 75px; } }   /* phones: two lines */
 
 .welcome p { max-width: 560px; margin: 0 auto 34px; color: #4a4642; }
 
