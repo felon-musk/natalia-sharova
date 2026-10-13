@@ -158,7 +158,7 @@ function openDetail(i) {
 // computers magnify where the mouse points; phones and tablets pinch with two fingers,
 // drag with one finger to look around, and double-tap to zoom back out.
 function enableZoom(box, img) {
-  const MAX = 3;
+  const MAX = 1.8;   // furthest a pinch can zoom (matches the 1.8x mouse zoom)
   let scale = 1, ox = 50, oy = 50;
   const clamp = v => Math.max(0, Math.min(100, v));
   const apply = () => {
@@ -175,7 +175,7 @@ function enableZoom(box, img) {
   // mouse or trackpad: magnify wherever the pointer is
   box.addEventListener("pointermove", e => {
     if (e.pointerType !== "mouse") return;
-    [ox, oy] = at(e.clientX, e.clientY); scale = 2.5; apply();
+    [ox, oy] = at(e.clientX, e.clientY); scale = 1.8; apply();
   });
   box.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") box.resetZoom(); });
 
@@ -186,6 +186,7 @@ function enableZoom(box, img) {
   box.addEventListener("pointerdown", e => {
     if (e.pointerType === "mouse") return;
     fingers.set(e.pointerId, e);
+    box.classList.add("touching");
     tap = fingers.size === 1 ? { x: e.clientX, y: e.clientY, t: Date.now() } : null;
     if (fingers.size === 2) {
       const [a, b] = [...fingers.values()];
@@ -213,6 +214,7 @@ function enableZoom(box, img) {
     fingers.delete(e.pointerId);
     if (fingers.size < 2) startDist = 0;
     last = fingers.size ? [...fingers.values()][0] : null;
+    if (!fingers.size) box.classList.remove("touching");
     if (scale < 1.05) box.resetZoom();
   };
   box.addEventListener("pointerup", e => {

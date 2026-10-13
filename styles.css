@@ -167,9 +167,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   max-width: 1240px; margin: 0 auto; padding: 84px 32px 80px;
 }
 .detail-main { aspect-ratio: 1 / 1; background: var(--soft); overflow: hidden; touch-action: pan-y; }
-.detail-main img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s ease; }
+/* mouse zoom eases in slowly and glides after the pointer; fingers move it directly (no lag) */
+.detail-main img { width: 100%; height: 100%; object-fit: cover;
+  transition: transform .8s cubic-bezier(.22, .61, .36, 1), transform-origin .45s ease-out; }
 .detail-main.zoomed { touch-action: none; }                       /* while zoomed, a finger drag looks around the painting */
-.detail-main.zoomed img { transition: none; }
+.detail-main.touching img { transition: none; }
 @media (hover: hover) and (pointer: fine) { .detail-main { cursor: zoom-in; } }
 .thumbs { display: flex; gap: 12px; margin-top: 12px; }
 .thumbs button { width: 96px; aspect-ratio: 1 / 1; opacity: .5; transition: opacity .2s; outline-offset: 2px; }
