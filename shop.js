@@ -38,6 +38,7 @@ function renderGrid(filter = "original") {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
   const items = ARTWORKS.map((art, i) => [art, i]).filter(([art]) => art.type === filter);
+  shownOrder = items.map(([, i]) => i);   // remembered so the arrow keys browse in the same order as the grid
   if (typeof LAYOUT !== "undefined" && LAYOUT === "staggered") renderStaggered(grid, items);
   else {
     grid.className = "grid";
@@ -92,7 +93,10 @@ function renderStaggered(grid, items) {
   }
 }
 
+let shownOrder = [], currentDetail = null;
+
 function openDetail(i) {
+  currentDetail = i;
   const art = ARTWORKS[i];
   const photos = [...art.images, ...(art.room ? [art.room] : [])];
   const d = document.getElementById("detail");
@@ -246,5 +250,14 @@ document.addEventListener("DOMContentLoaded", () => {
     renderGrid(b.dataset.filter);
   }));
   document.querySelector(".detail-close").addEventListener("click", closeDetail);
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetail(); });
+  document.addEventListener("keydown", e => {
+    const open = document.getElementById("detail").classList.contains("open");
+    if (e.key === "Escape") closeDetail();
+    // ← / → browse to the previous / next painting while one is open (wraps around at the ends)
+    if (open && (e.key === "ArrowLeft" || e.key === "ArrowRight") && shownOrder.length > 1) {
+      e.preventDefault();
+      const n = shownOrder.length, at = Math.max(0, shownOrder.indexOf(currentDetail));
+      openDetail(shownOrder[(at + (e.key === "ArrowRight" ? 1 : -1) + n) % n]);
+    }
+  });
 });
