@@ -84,7 +84,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .phone-break { display: none; }
 
 /* Tagline "being written": it starts as faint grey script, then black ink sweeps across it left to right
-   at one steady pace. Each half takes 1.7s; the second half starts the moment the first finishes. */
+   at one steady pace, fully written 1.6s after the page loads (each half sweeps in .654s). */
 @property --ink { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
 .tagline.writing .seg { position: relative; display: inline-block; color: rgba(27, 26, 25, .16);
   padding: .35em .25em; margin: -.35em -.25em; }        /* padding keeps the script's flourishes inside the ink layer */
@@ -92,9 +92,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   content: attr(data-text); position: absolute; inset: 0; padding: inherit; color: #1b1a19;
   -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--ink) - 6%), transparent var(--ink));
           mask-image: linear-gradient(90deg, #000 calc(var(--ink) - 6%), transparent var(--ink));
-  animation: write 1.7s linear .6s forwards;
+  animation: write .654s linear .4s forwards;
 }
-.tagline.writing .s2::after { animation-delay: 2.02s; }  /* starts as the first half's ink reaches it, so the edge flows straight through */
+.tagline.writing .s2::after { animation-delay: .947s; }  /* starts as the first half's ink reaches it (.4s + .654s × 88.6/106), so the edge flows straight through */
 @keyframes write { from { --ink: 0%; } to { --ink: 106%; } }
 @media (prefers-reduced-motion: reduce) {                /* no animation: show it already written */
   .tagline.writing .seg::after { animation: none; -webkit-mask-image: none; mask-image: none; }
