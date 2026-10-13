@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=EB+Garamond:wght@400;500&family=Cormorant+Unicase:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261013135551">
+  <link rel="stylesheet" href="styles.css?v=20261013144553">
 </head>
 <body>
 
@@ -26,28 +26,27 @@
 
   <main class="wrap">
     <section class="about">
-      <img class="reveal" src="images/portrait.svg" alt="Natalia Sharova in her studio">
-      <div class="reveal" style="transition-delay:.15s">
+      <img class="reveal" src="images/portrait-natalia-final.jpg" alt="Portrait of Natalia Sharova">
+      <div class="reveal about-bio" style="transition-delay:.15s">
         <div class="eyebrow">about the artist</div>
-        <h1>Natalia Sharova</h1>
+        <h1 class="visually-hidden">About Natalia Sharova</h1>
         <p>Placeholder bio: where Natalia is from, where she lives and works now, and how she came to painting.</p>
         <p>Placeholder: her training or path, the materials she works with, and any exhibitions, collections, or press worth mentioning.</p>
         <p>Placeholder: a warm closing line, e.g. that she paints from her studio in [city] and ships worldwide.</p>
-        <a class="btn outline" href="index.html#shop" style="margin-top:12px">View available work</a>
+        <a class="ruled about-link" href="index.html#shop"><span class="label">View selected works</span><span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
 
     <section class="statement reveal">
       <div class="divider" style="margin-bottom:48px"></div>
-      <h2>Artist Statement</h2>
-      <p>"Placeholder artist statement: a short paragraph in Natalia's own voice about what she's trying to capture in her work and why."</p>
+      <p>“Placeholder artist statement: a short paragraph in Natalia’s own voice about what she’s trying to capture in her work and why.”</p>
     </section>
   </main>
 
   <footer class="site-footer" id="contact">
     <div class="wrap reveal">
       <h2>Contact</h2>
-      <p class="lead">For commissions, gallery inquiries, or questions about a painting,<br>I'd love to hear from you.</p>
+      <p class="lead">For commissions, gallery inquiries, or questions about a painting,<br>I’d love to hear from you.</p>
       <div class="contact-links">
         <a class="ig" href="mailto:hello@nataliasharova.com" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/></svg>
@@ -64,6 +63,14 @@
     </div>
   </footer>
 
-  <script src="reveal.js?v=20261013135551"></script>
+  <script>
+    // Make the portrait exactly as tall as the bio next to it (re-measured whenever the bio's size changes).
+    (function () {
+      const bio = document.querySelector(".about-bio"), sec = document.querySelector(".about");
+      if (!bio || !("ResizeObserver" in window)) return;
+      new ResizeObserver(() => sec.style.setProperty("--bio-h", bio.offsetHeight + "px")).observe(bio);
+    })();
+  </script>
+  <script src="reveal.js?v=20261013144553"></script>
 </body>
 </html>
