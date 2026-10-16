@@ -140,12 +140,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .card-media { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--soft); }
 .card-media img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  transition: opacity .7s ease, transform 1.2s ease;
+  transition: opacity .7s ease;
 }
 .card-media .room { opacity: 0; }
 @media (hover: hover) {
   .card:hover .card-media .room { opacity: 1; }
-  .card:hover .card-media img { transform: scale(1.02); }
 }
 .tag {
   position: absolute; top: 14px; left: 14px; z-index: 2;

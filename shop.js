@@ -15,6 +15,10 @@ function priceLabel(art) {
   return art.price ? money(art.price) : "Price on request";
 }
 
+// The grid uses smaller copies (images/grid/), pre-shrunk smoothly so Chrome doesn't create
+// wavy "moiré" lines from the canvas weave when scaling the big photos down.
+const gridSrc = src => src.replace("images/", "images/grid/");
+
 function makeCard(art, i) {
   const card = document.createElement("article");
   card.className = "card reveal" + (art.status === "sold" ? " sold" : "");
@@ -22,8 +26,8 @@ function makeCard(art, i) {
   card.innerHTML = `
     <div class="card-media">
       ${art.type === "print" ? '<span class="tag">Print</span>' : ""}
-      <img src="${art.images[0]}" alt="${art.title}" loading="lazy">
-      ${art.room ? `<img class="room" src="${art.room}" alt="${art.title} shown in a room" loading="lazy">` : ""}
+      <img src="${gridSrc(art.images[0])}" alt="${art.title}" loading="lazy">
+      ${art.room ? `<img class="room" src="${gridSrc(art.room)}" alt="${art.title} shown in a room" loading="lazy">` : ""}
     </div>
     <h3>${art.title}</h3>
     <div class="meta">${materialLine(art)}</div>
