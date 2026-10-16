@@ -134,6 +134,19 @@ const ARTWORKS = [
     room: "images/painting-09-room.jpg",
     description: "",
     buyLink: ""
+  },
+  {
+    title: "Untitled No. 10",
+    type: "original",
+    status: "sold",
+    year: "",
+    medium: "Acrylic",
+    size: "30 × 30 in",
+    price: "",
+    images: ["images/painting-10.jpg"],
+    room: "images/painting-10-room.jpg",
+    description: "",
+    buyLink: ""
   }
 ];
 
