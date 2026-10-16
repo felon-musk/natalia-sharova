@@ -52,7 +52,7 @@ const ARTWORKS = [
     medium: "Acrylic",
     size: "30 × 30 in",
     price: "",
-    images: ["images/painting-03.jpg"],
+    images: ["images/painting-03.jpg?v=2"],
     room: "images/painting-03-room.jpg",
     description: "",
     buyLink: ""
@@ -117,7 +117,7 @@ const ARTWORKS = [
     medium: "Acrylic",
     size: "30 × 30 in",
     price: "",
-    images: ["images/painting-08.jpg"],
+    images: ["images/painting-08.jpg?v=2"],
     room: "images/painting-08-room.jpg",
     description: "",
     buyLink: ""
