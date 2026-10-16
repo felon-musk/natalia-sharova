@@ -144,7 +144,7 @@ const ARTWORKS = [
     size: "30 × 30 in",
     price: "",
     images: ["images/painting-10.jpg"],
-    room: "images/painting-10-room.jpg",
+    room: "images/painting-10-room.jpg?v=2",
     description: "",
     buyLink: ""
   }
