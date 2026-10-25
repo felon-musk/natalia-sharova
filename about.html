@@ -68,8 +68,13 @@
     // Make the portrait exactly as tall as the bio next to it (re-measured whenever the bio's size changes).
     (function () {
       const bio = document.querySelector(".about-bio"), sec = document.querySelector(".about");
-      if (!bio || !("ResizeObserver" in window)) return;
-      new ResizeObserver(() => sec.style.setProperty("--bio-h", bio.offsetHeight + "px")).observe(bio);
+      if (!bio) return;
+      const fit = () => sec.style.setProperty("--bio-h", bio.offsetHeight + "px");
+      fit();                                    // right away
+      addEventListener("load", fit);            // after fonts and images settle
+      addEventListener("resize", fit);
+      if (document.fonts) document.fonts.ready.then(fit);
+      if ("ResizeObserver" in window) new ResizeObserver(fit).observe(bio);
     })();
   </script>
   <script src="reveal.js?v=20261016114115"></script>
