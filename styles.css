@@ -226,17 +226,33 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: linear-gradient(to bottom, rgba(246,244,240,0), var(--soft));
   pointer-events: none;
 }
-.site-footer h2 { font-family: var(--display); font-weight: 400; font-size: clamp(24px, calc(2.14vw + 13.7px), 30px); }
-.site-footer .lead { color: #4a4642; max-width: 520px; margin: 12px auto 30px; }
-.contact-links { display: flex; justify-content: center; align-items: center; gap: 22px; margin-bottom: 44px; }
-.contact-links a { border-bottom: 1px solid var(--muted); }
-.contact-links a.ig { border: 0; display: block; width: 26px; height: 26px; transition: opacity .2s; }
-.contact-links a.ig:hover { opacity: .6; }
-.contact-links a.ig svg { width: 100%; height: 100%; }
-.signup { display: flex; max-width: 440px; margin: 0 auto; border: 1px solid var(--ink); }
-.signup input { flex: 1; border: 0; padding: 12px 16px; font: inherit; font-size: 16px; background: #fff; min-width: 0; }
-.signup button { background: var(--ink); color: #fff; padding: 0 22px; font-size: 15px; letter-spacing: .04em; }
-.fine-print { margin-top: 70px; font-size: 14px; color: var(--muted); }
+/* Footer: gallery columns */
+.site-footer { text-align: left; padding: 84px 0 34px; }
+.foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 60px; padding-bottom: 64px; }
+.foot-lead { font-family: var(--display); font-weight: 300; font-size: clamp(30px, 2.9vw, 40px); line-height: 1.15; max-width: 440px; }
+.foot-lead em { font-style: italic; }
+.foot-col h3 { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; font-weight: 500; color: var(--muted); margin: 10px 0 18px; }
+.foot-col ul { list-style: none; padding: 0; }
+.foot-col li { margin-bottom: 10px; }
+.foot-col a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s; }
+.foot-col a:hover { border-bottom-color: currentColor; }
+.foot-note { color: var(--muted); margin-bottom: 10px; }
+.signup { display: flex; max-width: 340px; border-bottom: 1px solid var(--ink); }
+.signup input { flex: 1; border: 0; background: transparent; font: inherit; font-size: 16px; padding: 10px 0; min-width: 0; color: var(--ink); }
+.signup input:focus { outline: none; }
+.signup button { background: none; border: 0; color: var(--ink); font-size: 18px; padding: 0 2px 0 14px; cursor: pointer; transition: transform .25s; }
+.signup button:hover { transform: translateX(4px); }
+.foot-base { border-top: 1px solid var(--line); padding-top: 22px; display: flex; justify-content: space-between; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.foot-base a { color: inherit; text-decoration: none; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; }
+.foot-base a:hover { color: var(--ink); }
+@media (max-width: 860px) {
+  .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .foot-lead { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .foot-grid { grid-template-columns: 1fr; gap: 34px; padding-bottom: 48px; }
+  .foot-base { flex-direction: column; gap: 14px; }
+}
 
 /* ---------- About page ---------- */
 /* portrait sized to exactly the height of the bio beside it (height set by a small script in about.html) */
@@ -293,5 +309,3 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .thanks { text-align: left; }
 .policy-link { max-width: 420px; margin-top: 30px; }
 .small-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-.policy-footer { margin-bottom: 4px; }
-.policy-footer a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
