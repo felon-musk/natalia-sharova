@@ -282,3 +282,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* keeps a page heading for search engines and screen readers without showing it */
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .about .eyebrow { margin-bottom: 18px; }
+
+/* Shipping & Returns and Thank-you pages */
+.policy { max-width: 640px; margin: 0 auto; padding: 80px 0 110px; }
+.policy h1 { font-family: var(--display); font-weight: 300; font-size: 44px; line-height: 1.1; margin-bottom: 36px; }
+.policy h2 { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; margin: 40px 0 12px; }
+.policy p { color: #4a4642; line-height: 1.75; margin-bottom: 14px; }
+.policy a:not(.ruled) { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.policy .lead-in { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink); }
+.thanks { text-align: left; }
+.policy-link { max-width: 420px; margin-top: 30px; }
+.small-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.policy-footer { margin-bottom: 4px; }
+.policy-footer a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
