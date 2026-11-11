@@ -261,7 +261,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .about-bio > :last-child { margin-bottom: 0; }
 .about h1 { font-family: var(--display); font-weight: 300; font-size: 52px; line-height: 1.1; margin: 10px 0 24px; }
 .about p { color: #4a4642; margin-bottom: 18px; line-height: 1.75; }
-.about-link { max-width: 420px; margin-top: 22px; }
+.about-link { max-width: 420px; margin-top: 44px; }
 .statement { max-width: 720px; margin: 0 auto; padding-bottom: 110px; text-align: center; }
 .statement h2 { font-family: var(--display); font-weight: 400; font-size: 34px; margin-bottom: 18px; }
 .statement p { font-family: var(--display); font-style: italic; font-size: 24px; line-height: 1.5; color: #3d3935; }
