@@ -309,3 +309,5 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .thanks { text-align: left; }
 .policy-link { max-width: 420px; margin-top: 30px; }
 .small-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.thanks { padding: 150px 0 190px; }
+@media (max-width: 560px) { .thanks { padding: 90px 0 120px; } }
