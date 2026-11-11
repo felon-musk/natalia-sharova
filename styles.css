@@ -228,7 +228,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 /* Footer: gallery columns */
 .site-footer { text-align: left; padding: 84px 0 34px; }
-.foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 60px; padding-bottom: 64px; }
+.foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 100px; padding-bottom: 64px; }
 .foot-lead { font-family: var(--display); font-weight: 300; font-size: clamp(30px, 2.9vw, 40px); line-height: 1.15; max-width: 440px; }
 .foot-lead em { font-style: italic; }
 .foot-col h3 { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; font-weight: 500; color: var(--muted); margin: 10px 0 18px; }
