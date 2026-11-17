@@ -311,4 +311,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .small-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .thanks { padding: 150px 0 190px; }
 @media (max-width: 560px) { .thanks { padding: 90px 0 120px; } }
-.small-note.above { margin: 0 0 14px; }
+
+/* sold note sits above the Inquire link; "Price on request" uses the same quiet note style */
+.detail-info .sold-note { margin: 0 0 22px; }
+.detail-info .price-request { margin: 0 0 22px; }
+.detail-info .status.sold { margin-bottom: 8px; }

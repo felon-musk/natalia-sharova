@@ -125,13 +125,16 @@ function openDetail(i) {
       <h2>${art.title}</h2>
       <div class="kind">${materialLine(art)}${art.year ? ", " + art.year : ""}</div>
       <div class="status${art.status === "sold" ? " sold" : ""}"><span class="dot"></span>${art.status === "sold" ? "Sold" : "Available"}</div>
-      ${art.status === "sold" ? "" : `<div class="price" id="detailPrice">${chosen ? money(chosen.price) : priceLabel(art)}</div>`}
+      ${art.status === "sold" ? "" : (!chosen && !art.price && art.type !== "print")
+        ? `<p class="small-note price-request" id="detailPrice">Price on request</p>`
+        : `<div class="price" id="detailPrice">${chosen ? money(chosen.price) : priceLabel(art)}</div>`}
       ${chosen ? `<div class="sizes">${art.options.map((o, n) =>
         `<button class="${n ? "" : "active"}" data-n="${n}">${o.size}</button>`).join("")}</div>` : ""}
       ${art.type === "print" ? `<dl><dt>Medium</dt><dd>${art.medium}</dd></dl>` : ""}
       <p class="desc">${art.description || ""}</p>
+      ${art.status === "sold" ? `<p class="small-note sold-note" id="buyNote"></p>` : ""}
       <a class="ruled" id="buyBtn" target="_blank" rel="noopener"><span class="label"></span><span class="arrow" aria-hidden="true">→</span></a>
-      <p class="small-note" id="buyNote"></p>
+      ${art.status === "sold" ? "" : `<p class="small-note" id="buyNote"></p>`}
     </div>`;
 
   const buyBtn = d.querySelector("#buyBtn");
@@ -142,7 +145,6 @@ function openDetail(i) {
     if (art.status === "sold") {
       label.textContent = "Inquire about similar work"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
       note.textContent = "This painting has found a home.";
-      buyBtn.before(note); note.classList.add("above");   // sold: the note sits above the link
     } else if (link) {
       label.textContent = "Purchase"; buyBtn.href = link; buyBtn.target = "_blank";
       note.innerHTML = 'Free shipping within the US · All sales final · <a href="shipping.html">Details</a>';
