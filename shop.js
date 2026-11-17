@@ -142,6 +142,7 @@ function openDetail(i) {
     if (art.status === "sold") {
       label.textContent = "Inquire about similar work"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
       note.textContent = "This painting has found a home.";
+      buyBtn.before(note); note.classList.add("above");   // sold: the note sits above the link
     } else if (link) {
       label.textContent = "Purchase"; buyBtn.href = link; buyBtn.target = "_blank";
       note.innerHTML = 'Free shipping within the US · All sales final · <a href="shipping.html">Details</a>';

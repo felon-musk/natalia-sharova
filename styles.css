@@ -311,3 +311,4 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .small-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .thanks { padding: 150px 0 190px; }
 @media (max-width: 560px) { .thanks { padding: 90px 0 120px; } }
+.small-note.above { margin: 0 0 14px; }
