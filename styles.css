@@ -314,5 +314,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* sold note sits above the Inquire link; "Price on request" uses the same quiet note style */
 .detail-info .sold-note { margin: 0 0 22px; }
-.detail-info .price-request { margin: 0 0 22px; }
+.detail-info .price-request { margin: 30px 0 22px; }
+.detail-info .price-request ~ .desc:empty { display: none; }
 .detail-info .status.sold { margin-bottom: 8px; }
