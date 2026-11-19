@@ -147,10 +147,10 @@ function openDetail(i) {
       note.textContent = "This painting has found a home.";
     } else if (link) {
       label.textContent = "Purchase"; buyBtn.href = link; buyBtn.target = "_blank";
-      note.innerHTML = 'Free shipping within the US · All sales final · <a href="shipping.html">Details</a>';
+      note.innerHTML = 'Free shipping within the US · All sales final · <a href="faq.html">Details</a>';
     } else {
       label.textContent = "Inquire"; buyBtn.href = inquire; buyBtn.removeAttribute("target");
-      note.innerHTML = art.price ? 'Free shipping within the US · <a href="shipping.html">Shipping &amp; returns</a>' : "";
+      note.innerHTML = art.price ? 'Free shipping within the US · <a href="faq.html">FAQ</a>' : "";
     }
   }
   updateBuy();
